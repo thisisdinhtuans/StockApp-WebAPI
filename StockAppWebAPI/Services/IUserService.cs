@@ -1,9 +1,10 @@
 ﻿using StockAppWebApi.Models;
+using StockAppWebAPI.ViewModels;
 
 namespace StockAppWebAPI.Services
 {
     public interface IUserService
     {
-        Task<int> Register(User user);
+        Task<User?> Register(RegisterViewModel registerViewModel);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockAppWebApi.Models;
 using StockAppWebAPI.Services;
+using StockAppWebAPI.ViewModels;
 
 namespace StockAppWebAPI.Controllers
 {
@@ -15,12 +16,12 @@ namespace StockAppWebAPI.Controllers
         }
         //https://localhost:port/api/user/register
         [HttpPost("register")]
-        public async Task<IActionResult> Register(User user)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
             try
             {
-                var userId = await _userService.Register(user);
-                return Ok(new { UserId = userId });
+                User? user = await _userService.Register(registerViewModel);
+                return Ok(user);
             }
             catch (ArgumentException ex)
             {
