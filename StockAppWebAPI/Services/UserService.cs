@@ -14,6 +14,11 @@ namespace StockAppWebAPI.Services
             _userRepository = userRepository;
         }
 
+        public async Task<string> Login(LoginViewModel loginViewModel)
+        {
+            return await _userRepository.Login(loginViewModel);
+        }
+
         public async Task<User?> Register(RegisterViewModel registerViewModel)
         {
             //kiểm tra xem username hoặc email đã tồn tại trong database hay chưa
