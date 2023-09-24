@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockAppWebAPI.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -44,6 +45,9 @@ namespace StockAppWebApi.Models
         [StringLength(200, ErrorMessage = "Country name cannot exceed 200 characters")]
         [Column("country")]
         public string? Country { get; set; }
+
+        //navigation
+        public ICollection<WatchList>? WatchLists { get; set; }
 
     }
 

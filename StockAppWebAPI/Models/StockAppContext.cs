@@ -11,9 +11,16 @@ namespace StockAppWebAPI.Models
         
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<WatchList> WatchLists { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //code này cho biết gộp 2 thà này sẽ tạo khóa chính của bảng WatchList
+            //tức là nếu có 2 trường UserId và StockId giống hệt nhau thì lúc đó sẽ không cho insert nữa 
+            modelBuilder.Entity<WatchList>()
+                .HasKey(w=>new {w.UserId, w.StockId});
         }
     }
 }

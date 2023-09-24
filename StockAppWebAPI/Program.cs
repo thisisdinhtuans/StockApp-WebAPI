@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StockAppWebApi.Repositories;
 using StockAppWebAPI.Models;
 using StockAppWebAPI.Repositories;
 using StockAppWebAPI.Services;
@@ -18,6 +19,12 @@ builder.Services.AddDbContext<StockAppContext>(options =>
     options.UseSqlServer(settings["DefaultConnection"]));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IWatchListRepository, WatchListRepository>();
+builder.Services.AddScoped<IWatchListService, WatchListService>();
+
+builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<IStockService, StockService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(options =>
@@ -33,19 +40,6 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 });
-//.AddJwtBearer(options =>
-//{
-//    options.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        ValidIssuer = "your_issuer_here",
-//        ValidAudience = "your_audience_here",
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_here"))
-//    };
-//});
 
 var app = builder.Build();
 
