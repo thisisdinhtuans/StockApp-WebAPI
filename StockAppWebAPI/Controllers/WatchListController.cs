@@ -40,7 +40,7 @@ namespace StockAppWebAPI.Controllers
             }
             //Kiểm tra cổ phiểu đã tồn tại trong watchlist của người dùng chưa  
             var existingWatchlistItem = await _watchlistService.GetWatchlistItem(userId, stockId); 
-            if (existingWatchlistItem == null)
+            if (existingWatchlistItem != null)
             {
                 return BadRequest("Stock is already in watchlist.");
             }
