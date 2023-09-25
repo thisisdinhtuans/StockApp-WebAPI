@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using StockAppWebApi.Filters;
+using StockAppWebApi.Attributes;
+using StockAppWebAPI.Extensions;
 using StockAppWebAPI.Services;
 using System.Net;
 using System.Security.Claims;
@@ -14,24 +15,19 @@ namespace StockAppWebAPI.Controllers
         private readonly IWatchListService _watchlistService;
         private readonly IUserService _userService;
         private readonly IStockService _stockService;
-        private readonly AuthorizationFilterContext _context;
-        public WatchListController(IWatchListService watchlistService, IStockService stockService, IUserService userService, AuthorizationFilterContext authorizationFilterContext)
+        public WatchListController(IWatchListService watchlistService, IStockService stockService, IUserService userService)
         {
             _watchlistService = watchlistService;
             _userService = userService;
             _stockService = stockService;
-            _context = authorizationFilterContext;
         }
         [HttpPost("AddStockToWatchList/{stockId}")]
         [JwtAuthorize]
         public async Task<IActionResult> AddStockToWatchlist(int stockId)
         {
             //Lấy UserId từ context
-            if(!int.TryParse(_context.HttpContext.User
-                .FindFirst(ClaimTypes.NameIdentifier)?.Value, out var userId)) //out var userId: tức là lấy ra được userId
-            {
-                return Unauthorized();
-            }
+            int userId = HttpContext.GetUserId();
+            
             var user = await _userService.GetUserById(userId);
             var stock = await _stockService.GetStockById(stockId);
             if (user == null)

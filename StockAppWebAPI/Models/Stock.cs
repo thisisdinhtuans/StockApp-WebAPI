@@ -13,46 +13,46 @@ namespace StockAppWebAPI.Models
         [Required]
         [MaxLength(10)]
         [Column("symbol")] // Ánh xạ tên cột
-        public string Symbol { get; set; } = "";
+        public string? Symbol { get; set; }
 
         [Required]
         [MaxLength(255)]
         [Column("company_name")] // Ánh xạ tên cột
-        public string CompanyName { get; set; } = "";
+        public string? CompanyName { get; set; }
 
         [Column("market_cap")] // Ánh xạ tên cột
         public decimal? MarketCap { get; set; } // Để cho phép giá trị null
 
         [MaxLength(200)]
         [Column("sector")] // Ánh xạ tên cột
-        public string Sector { get; set; } = "";
+        public string? Sector { get; set; }
 
         [MaxLength(200)]
         [Column("industry")] // Ánh xạ tên cột
-        public string Industry { get; set; } = "";
+        public string? Industry { get; set; }
 
         [MaxLength(200)]
         [Column("sector_en")] // Ánh xạ tên cột
-        public string SectorEn { get; set; } = "";
+        public string? SectorEn { get; set; }
 
         [MaxLength(200)]
         [Column("industry_en")] // Ánh xạ tên cột
-        public string IndustryEn { get; set; } = "";
+        public string? IndustryEn { get; set; }
 
         [MaxLength(50)]
         [Column("stock_type")] // Ánh xạ tên cột
-        public string StockType { get; set; } = "";
+        public string? StockType { get; set; }
 
         [Column("rank")] // Ánh xạ tên cột
         public int Rank { get; set; }
 
         [MaxLength(200)]
         [Column("rank_source")] // Ánh xạ tên cột
-        public string RankSource { get; set; } = "";
+        public string? RankSource { get; set; }
 
         [MaxLength(255)]
         [Column("reason")] // Ánh xạ tên cột
-        public string Reason { get; set; } = "";
+        public string? Reason { get; set; }
         //navigation
         public ICollection<WatchList>? WatchLists { get; set; }
     }

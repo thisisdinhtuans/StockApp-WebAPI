@@ -9,9 +9,11 @@ namespace StockAppWebAPI.Models
     {
         [Key]
         [ForeignKey("User")]
+        [Column("user_id")]
         public int UserId { get; set; }
         [Key]
         [ForeignKey("Stock")]
+        [Column("stock_id")]
         public int StockId { get; set; }
 
         // Liên kết với bảng Users
