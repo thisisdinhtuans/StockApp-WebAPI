@@ -27,6 +27,8 @@ builder.Services.AddScoped<IWatchListService, WatchListService>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IStockService, StockService>();
 
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
+builder.Services.AddScoped<IQuoteService, QuoteService>();
 
 builder.Services.AddScoped<JwtAuthorizeFilter>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -59,5 +61,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseAuthentication();
 app.MapControllers();
+// 2 phút là khoảng thời gian mà client và server duy trì kết nối, tức là 2 phút thì tôi gọi anh 1 tieengs 
+var webSocketOptions = new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2),
+};
+
+app.UseWebSockets(webSocketOptions);
 
 app.Run();
