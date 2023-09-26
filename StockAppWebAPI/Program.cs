@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StockAppWebApi.Filters;
 using StockAppWebApi.Repositories;
+using StockAppWebApi.Services;
 using StockAppWebAPI.Models;
 using StockAppWebAPI.Repositories;
 using StockAppWebAPI.Services;
@@ -29,6 +30,9 @@ builder.Services.AddScoped<IStockService, StockService>();
 
 builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
 builder.Services.AddScoped<IQuoteService, QuoteService>();
+
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddScoped<JwtAuthorizeFilter>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

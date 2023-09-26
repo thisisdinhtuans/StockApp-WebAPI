@@ -15,6 +15,8 @@ namespace StockAppWebAPI.Models
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<RealtimeQuote> RealtimeQuotes { get; set; }
         public DbSet<Quote> Quotes { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +25,8 @@ namespace StockAppWebAPI.Models
             //tức là nếu có 2 trường UserId và StockId giống hệt nhau thì lúc đó sẽ không cho insert nữa 
             modelBuilder.Entity<WatchList>()
                 .HasKey(w=>new {w.UserId, w.StockId});
+            modelBuilder.Entity<Order>()
+                .ToTable(table => table.HasTrigger("trigger_orders"));
         }
     }
 }
