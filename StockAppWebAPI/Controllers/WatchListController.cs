@@ -47,6 +47,32 @@ namespace StockAppWebAPI.Controllers
             await _watchlistService.AddStockToWatchlist(userId, stockId);
             return Ok();
         }
+
+        [HttpGet("GetStockByUserId")]
+        [JwtAuthorize]
+        public async Task<IActionResult> GetStockByUserId(int userId)
+        {
+            //Lấy UserId từ context
+
+            var user = await _userService.GetUserById(userId);
+            var stock = await _stockService.GetStockById(stockId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            if (stock == null)
+            {
+                return NotFound("Stock not found");
+            }
+            //Kiểm tra cổ phiểu đã tồn tại trong watchlist của người dùng chưa  
+            var existingWatchlistItem = await _watchlistService.GetWatchlistItem(userId, stockId);
+            if (existingWatchlistItem != null)
+            {
+                return BadRequest("Stock is already in watchlist.");
+            }
+            await _watchlistService.AddStockToWatchlist(userId, stockId);
+            return Ok();
+        }
         //public IActionResult Index()
         //{
         //    return View();
